@@ -3,38 +3,59 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {createStore} from 'redux';
+import { createStore } from 'redux';
+import allReducer from './reducers';
+import { Provider } from 'react-redux';
 
 
-// STORE -> GLOBALIZED STATE
+const store = createStore(
+  allReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
-// ACTION INCREMENT
-const increment = () => {
-  return {
-    type: 'INCREMENT'
-  }
-}
 
-const decrement = () => {
-  return {
-    type: 'DECREMENT'
-  }
-}
 
-// REDUCER
-const counter = (state = 0, action) => {
-  switch(action.type) {
-    case 'INCREMENT':
-      return state + 1;
-  }
-}
-// DISPATCH
+
+// // STORE -> GLOBALIZED STATE
+
+// // ACTION INCREMENT
+// const increment = () => {
+//   return {
+//     type: 'INCREMENT'
+//   }
+// }
+
+// const decrement = () => {
+//   return {
+//     type: 'DECREMENT'
+//   }
+// }
+
+// // REDUCER
+// const counter = (state = 0, action) => {
+//   switch(action.type) {
+//     case 'INCREMENT':
+//       return state + 1;
+//     case 'DECREMENT':
+//       return state - 1;
+//   }
+// }
+
+// let store = createStore(counter);
+
+// // Display it in console
+// store.subscribe(() => console.log(store.getState()));
+
+// // DISPATCH
+// store.dispatch(increment());
+// store.dispatch(decrement());
+// store.dispatch(decrement());
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
